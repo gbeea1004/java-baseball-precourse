@@ -2,6 +2,9 @@ package study;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -41,17 +44,16 @@ public class StringTest {
         assertThat(resultText2).isEqualTo("50");
     }
 
+    @ParameterizedTest
+    @CsvSource(value = {"0:a", "1:b", "2:c"}, delimiter = ':')
     @DisplayName("charAt 메서드를 사용해 특정 위치의 문자를 가져온다")
-    @Test
-    void whenUsingCharAtForText_thenGetCharFromSpecificPosition() {
+    void whenUsingCharAtForText_thenGetCharFromSpecificPosition(int index, char expected) {
         // given
         String inputText = "abc";
 
         // when
         // then
-        assertThat(inputText.charAt(0)).isEqualTo('a');
-        assertThat(inputText.charAt(1)).isEqualTo('b');
-        assertThat(inputText.charAt(2)).isEqualTo('c');
+        assertThat(inputText.charAt(index)).isEqualTo(expected);
     }
 
     @DisplayName("charAt 메서드를 사용할 때 index 범위를 벗어나면 에러가 발생한다")
