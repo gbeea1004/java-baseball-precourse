@@ -2,6 +2,9 @@ package baseball.domain;
 
 import camp.nextstep.edu.missionutils.Randoms;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class BaseballNumber {
 
     private static final int COMPUTER_MIN_RANDOM_NUMBER = 1;
@@ -20,7 +23,7 @@ public class BaseballNumber {
 
     public static BaseballNumber createRandomNumber() {
         StringBuilder numberText = new StringBuilder();
-        while (numberText.length() != NUMBER_COUNT) {
+        while (isNotThreeLength(numberText.toString())) {
             addNumber(numberText);
         }
         return new BaseballNumber(numberText.toString());
@@ -28,17 +31,45 @@ public class BaseballNumber {
 
     private static void addNumber(StringBuilder numberText) {
         int no = Randoms.pickNumberInRange(COMPUTER_MIN_RANDOM_NUMBER, COMPUTER_MAX_RANDOM_NUMBER);
-        if (hasSameNumber(no, numberText.toString())) {
+        if (hasContainNumber(no, numberText.toString())) {
             return;
         }
         numberText.append(no);
     }
 
-    private static boolean hasSameNumber(int no, String target) {
+    private static boolean hasContainNumber(int no, String target) {
         return target.contains(String.valueOf(no));
     }
 
     private static boolean isValidNumber(String text) {
+        if (isNotThreeLength(text)) {
+            return false;
+        }
+
+        if (!isNumber(text)) {
+            return false;
+        }
+
+        return !isDuplicateNumber(text);
+    }
+
+    private static boolean isNotThreeLength(String text) {
+        return text.length() != NUMBER_COUNT;
+    }
+
+    private static boolean isDuplicateNumber(String text) {
+        Map<Character, Integer> numbers = new HashMap<>();
+        for (int i = 0; i < text.length(); i++) {
+            char no = text.charAt(i);
+            if (numbers.containsKey(no)) {
+                return true;
+            }
+            numbers.put(no, 1);
+        }
+        return false;
+    }
+
+    private static boolean isNumber(String text) {
         try {
             Integer.parseInt(text);
             return true;
