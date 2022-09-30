@@ -2,8 +2,7 @@ package baseball.domain;
 
 import camp.nextstep.edu.missionutils.Randoms;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Arrays;
 
 public class BaseballNumber {
 
@@ -12,7 +11,8 @@ public class BaseballNumber {
     private static final int NUMBER_COUNT = 3;
     private String numberText;
 
-    private BaseballNumber() {}
+    private BaseballNumber() {
+    }
 
     public BaseballNumber(String numberText) {
         if (!isValidNumber(numberText)) {
@@ -58,15 +58,9 @@ public class BaseballNumber {
     }
 
     private static boolean isDuplicateNumber(String text) {
-        Map<Character, Integer> numbers = new HashMap<>();
-        for (int i = 0; i < text.length(); i++) {
-            char no = text.charAt(i);
-            if (numbers.containsKey(no)) {
-                return true;
-            }
-            numbers.put(no, 1);
-        }
-        return false;
+        return Arrays.stream(text.split(""))
+                     .distinct()
+                     .count() != NUMBER_COUNT;
     }
 
     private static boolean isNumber(String text) {
