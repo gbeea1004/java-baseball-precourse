@@ -6,9 +6,11 @@ public class OutputView {
 
     private static final String STRIKE = "스트라이크";
     private static final String BALL = "볼";
+    private static final String NOT_MATCH = "낫싱";
 
     public static void printGameResult(BaseballGameResultDto gameResult) {
         if (gameResult.isFinishGame()) {
+            System.out.println(gameResult.getStrike() + STRIKE);
             System.out.println(gameResult.getStrike() + "개의 숫자를 모두 맞히셨습니다! 게임 종료");
             return;
         }
@@ -30,7 +32,7 @@ public class OutputView {
 
     private static boolean isNotMatch(BaseballGameResultDto gameResult) {
         if (isNoneStrike(gameResult) && isNoneBall(gameResult)) {
-            System.out.println("낫싱");
+            System.out.println(NOT_MATCH);
             return true;
         }
         return false;

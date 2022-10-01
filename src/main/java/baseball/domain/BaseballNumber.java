@@ -11,10 +11,7 @@ public class BaseballNumber {
     public static final int NUMBER_COUNT = 3;
     private static final int COMPUTER_MIN_RANDOM_NUMBER = 1;
     private static final int COMPUTER_MAX_RANDOM_NUMBER = 9;
-    private String numberText;
-
-    private BaseballNumber() {
-    }
+    private final String numberText;
 
     public BaseballNumber(String numberText) {
         if (!isValidNumber(numberText)) {
@@ -29,10 +26,6 @@ public class BaseballNumber {
             addNumber(numberText);
         }
         return new BaseballNumber(numberText.toString());
-    }
-
-    public boolean isSameNumber(BaseballNumber target) {
-        return numberText.equals(target.numberText);
     }
 
     private static void addNumber(StringBuilder numberText) {

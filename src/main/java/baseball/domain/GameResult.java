@@ -5,9 +5,6 @@ public class GameResult {
     private int strike;
     private int ball;
 
-    private GameResult() {
-    }
-
     public GameResult(BaseballNumber opponent, BaseballNumber player) {
         String opponentNumber = opponent.getNumberText();
         String playerNumber = player.getNumberText();

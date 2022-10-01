@@ -1,6 +1,7 @@
 package baseball.controller;
 
 import baseball.domain.BaseballNumber;
+import baseball.domain.GameState;
 import baseball.dto.BaseballGameResultDto;
 import baseball.service.BaseballGameService;
 import baseball.view.InputView;
@@ -16,7 +17,15 @@ public class BaseballGameController {
 
     public void run() {
         BaseballNumber computer = BaseballNumber.createRandomNumber();
-        System.out.println("computer = " + computer.getNumberText());
+        GameState gameState = GameState.PROGRESS;
+        while (gameState.isGameProgress()) {
+            System.out.println("computer = " + computer.getNumberText());
+            playGame(computer);
+            gameState = InputView.inputWhetherRestartGame();
+        }
+    }
+
+    private void playGame(BaseballNumber computer) {
         boolean isFinish = false;
         while (!isFinish) {
             BaseballNumber player = new BaseballNumber(InputView.inputPlayerNumber());
