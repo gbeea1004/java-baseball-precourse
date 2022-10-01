@@ -16,11 +16,12 @@ public class BaseballGameController {
     }
 
     public void run() {
-        BaseballNumber computer = BaseballNumber.createRandomNumber();
         GameState gameState = GameState.PROGRESS;
         while (gameState.isGameProgress()) {
-            System.out.println("computer = " + computer.getNumberText());
+            BaseballNumber computer = BaseballNumber.createRandomNumber();
+
             playGame(computer);
+
             gameState = InputView.inputWhetherRestartGame();
         }
     }
@@ -31,6 +32,7 @@ public class BaseballGameController {
             BaseballNumber player = new BaseballNumber(InputView.inputPlayerNumber());
 
             BaseballGameResultDto baseballGameResultDto = baseballGameService.playGame(computer, player);
+
             OutputView.printGameResult(baseballGameResultDto);
             isFinish = baseballGameResultDto.isFinishGame();
         }
