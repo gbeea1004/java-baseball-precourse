@@ -4,6 +4,7 @@ import baseball.domain.BaseballNumber;
 import baseball.dto.BaseballGameResultDto;
 import baseball.service.BaseballGameService;
 import baseball.view.InputView;
+import baseball.view.OutputView;
 
 public class BaseballGameController {
 
@@ -15,11 +16,13 @@ public class BaseballGameController {
 
     public void run() {
         BaseballNumber computer = BaseballNumber.createRandomNumber();
+        System.out.println("computer = " + computer.getNumberText());
         boolean isFinish = false;
         while (!isFinish) {
             BaseballNumber player = new BaseballNumber(InputView.inputPlayerNumber());
 
             BaseballGameResultDto baseballGameResultDto = baseballGameService.playGame(computer, player);
+            OutputView.printGameResult(baseballGameResultDto);
             isFinish = baseballGameResultDto.isFinishGame();
         }
     }
