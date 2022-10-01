@@ -3,12 +3,14 @@ package baseball.domain;
 import camp.nextstep.edu.missionutils.Randoms;
 
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 public class BaseballNumber {
 
+    public static final int NUMBER_COUNT = 3;
     private static final int COMPUTER_MIN_RANDOM_NUMBER = 1;
     private static final int COMPUTER_MAX_RANDOM_NUMBER = 9;
-    private static final int NUMBER_COUNT = 3;
     private String numberText;
 
     private BaseballNumber() {
@@ -29,6 +31,10 @@ public class BaseballNumber {
         return new BaseballNumber(numberText.toString());
     }
 
+    public boolean isSameNumber(BaseballNumber target) {
+        return numberText.equals(target.numberText);
+    }
+
     private static void addNumber(StringBuilder numberText) {
         int no = Randoms.pickNumberInRange(COMPUTER_MIN_RANDOM_NUMBER, COMPUTER_MAX_RANDOM_NUMBER);
         if (hasContainNumber(no, numberText.toString())) {
@@ -41,26 +47,25 @@ public class BaseballNumber {
         return target.contains(String.valueOf(no));
     }
 
-    private static boolean isValidNumber(String text) {
-        if (isNotThreeLength(text)) {
+    private static boolean isValidNumber(String numberText) {
+        if (isNotThreeLength(numberText)) {
             return false;
         }
 
-        if (!isNumber(text)) {
+        if (!isNumber(numberText)) {
             return false;
         }
 
-        return !isDuplicateNumber(text);
+        return !isDuplicateNumber(numberText);
     }
 
     private static boolean isNotThreeLength(String text) {
         return text.length() != NUMBER_COUNT;
     }
 
-    private static boolean isDuplicateNumber(String text) {
-        return Arrays.stream(text.split(""))
-                     .distinct()
-                     .count() != NUMBER_COUNT;
+    private static boolean isDuplicateNumber(String numberText) {
+        Set<String> numbers = new HashSet<>(Arrays.asList(numberText.split("")));
+        return numbers.size() != NUMBER_COUNT;
     }
 
     private static boolean isNumber(String text) {

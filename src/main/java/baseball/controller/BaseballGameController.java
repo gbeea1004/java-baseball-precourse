@@ -1,6 +1,7 @@
 package baseball.controller;
 
 import baseball.domain.BaseballNumber;
+import baseball.dto.BaseballGameResultDto;
 import baseball.service.BaseballGameService;
 import camp.nextstep.edu.missionutils.Console;
 
@@ -17,8 +18,9 @@ public class BaseballGameController {
         boolean isFinish = false;
         while (!isFinish) {
             BaseballNumber player = new BaseballNumber(Console.readLine());
-            baseballGameService.playGame(computer, player);
-            isFinish = baseballGameService.isFinishGame();
+
+            BaseballGameResultDto baseballGameResultDto = baseballGameService.playGame(computer, player);
+            isFinish = baseballGameResultDto.isFinishGame();
         }
     }
 }

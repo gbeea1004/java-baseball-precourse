@@ -1,24 +1,12 @@
 package baseball.service;
 
 import baseball.domain.BaseballNumber;
-import baseball.domain.GameStatus;
-import baseball.repository.BaseballGameRepository;
+import baseball.domain.GameResult;
+import baseball.dto.BaseballGameResultDto;
 
 public class BaseballGameService {
 
-    private final BaseballGameRepository baseballGameRepository;
-
-    public BaseballGameService(BaseballGameRepository baseballGameRepository) {
-        this.baseballGameRepository = baseballGameRepository;
-    }
-
-    public void playGame(BaseballNumber computer, BaseballNumber player) {
-        System.out.println("computer = " + computer.getNumberText());
-        System.out.println("player = " + player.getNumberText());
-        baseballGameRepository.updateToFinishGame();
-    }
-
-    public boolean isFinishGame() {
-        return baseballGameRepository.findGameStatus() == GameStatus.FINISH;
+    public BaseballGameResultDto playGame(BaseballNumber computer, BaseballNumber player) {
+        return new BaseballGameResultDto(new GameResult(computer, player));
     }
 }
